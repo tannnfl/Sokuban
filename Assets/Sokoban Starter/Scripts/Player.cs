@@ -5,50 +5,75 @@ using UnityEngine.Events;
 
 public class Player : MonoBehaviour
 {
+    GameManager gm;
+    Vector2Int gridPosition;
 
     [Header("Player Control")]
-    public KeyCode Up = KeyCode.W;
-    public KeyCode Down = KeyCode.S;
-    public KeyCode Left = KeyCode.A;
-    public KeyCode Right = KeyCode.D;
-
-    public UnityVector2Event MoveUp;
-    public UnityVector2Event MoveDown;
-    public UnityVector2Event MoveLeft;
-    public UnityVector2Event MoveRight;
-
+    public KeyCode upKey = KeyCode.W;
+    public KeyCode downKey = KeyCode.S;
+    public KeyCode leftKey = KeyCode.A;
+    public KeyCode rightKey = KeyCode.D;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        gridPosition = GetComponent<GridObject>().gridPosition;
+        gm = GameObject.Find("Grid").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(Up))
-        {
-            MoveUp.Invoke(GetComponent<GridObject>().gridPosition);
-        }
-        else if (Input.GetKeyDown(Down))
-        {
-            MoveDown.Invoke(GetComponent<GridObject>().gridPosition);
-        }
-        else if (Input.GetKeyDown(Left))
-        {
-            MoveLeft.Invoke(GetComponent<GridObject>().gridPosition);
-        }
-        else if (Input.GetKeyDown(Right))
-        {
-            MoveRight.Invoke(GetComponent<GridObject>().gridPosition);
-        }
+        KeyboardCommand();
+    }
 
-     }    
-}
+    void KeyboardCommand()
+    {
+        if (Input.GetKeyDown(upKey))
+        {
+            
+        }
+        else if (Input.GetKeyDown(downKey))
+        {
 
-    [System.Serializable]
-    public class UnityVector2Event : UnityEvent<Vector2>
-{
+        }
+        else if (Input.GetKeyDown(leftKey))
+        {
 
+        }
+        else if (Input.GetKeyDown(rightKey))
+        {
+
+        }
+    }
+
+    public void Attempt(Vector2Int movement)
+    {
+        //grid position of attempting grid
+        int _x = (gridPosition + movement).x;
+        int _y = (gridPosition + movement).y;
+        //check not out of boundary
+        if (0 < _x && _x < 10 &&
+            0 < _y && _y < 5)
+        {
+            //check if next grid is empty
+            if (gm.arrayGrids[_x][_y] == null)
+            {
+                Move(movement);
+            }
+            else
+            {
+                gm.arrayGrids[_x][_y].Attempt(movement);
+            }
+        }
+        //check if right empty
+        //if empty, move
+        //if not,
+        //  right.moveright()
+        //  check if empty, move
+    }
+    void Move(Vector2Int movement)
+    {
+        gridPosition += movement;
+    }
 }
