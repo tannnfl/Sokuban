@@ -5,6 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - block
+  - clingy
+  - player
+  - smooth
+  - sticky
+  - wall
+  - slick
   layers:
   - Default
   - TransparentFX
